@@ -1,3 +1,5 @@
+# Bluecoat logging
+
 BlueCoat, jetzt als Symantec Proxy bekannt, bietet detaillierte Web-Logs, die Informationen über den Web-Traffic eines Benutzers enthalten. Wenn Sie diese Logs in Splunk indexiert haben, können Sie verschiedene Panels erstellen, um Ihr Surfverhalten im Edge-Browser zu analysieren.
 
 Hier sind einige Vorschläge für Panels und die entsprechenden SPLs, basierend auf den üblichen Feldern in BlueCoat-Logs:
