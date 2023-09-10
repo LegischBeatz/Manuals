@@ -10,8 +10,14 @@ A curated collection of comprehensive manuals and cheatsheets, presented in mark
 
 ## Table of Contents
 
-- [Programming Languages](./programming-languages)
-- [Tools](./tools)
-- [Frameworks](./frameworks)
-- ... (add more categories as needed)
+Automation-DevOps/
+Business-Data/
+Databases/
+Logging-Monitoring/
+Operating-Systems/
+README.md
+Security/
+Virtualization/
+Web-Development/
+
 
