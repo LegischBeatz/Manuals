@@ -1,3 +1,69 @@
+# WinEventlog Statistics
+
+### 1. Tägliche Übersicht
+```spl
+index=windows EventCode IN (4800,4801) 
+| timechart span=1h count by EventCode
+```
+
+---
+
+### 2. Mittagspause-Dauer
+Angenommen, Ihre Mittagspause liegt zwischen 12:00 und 14:00 Uhr.
+```spl
+index=windows EventCode=4800 [search index=windows EventCode=4801 earliest=-1h@h latest=@h] 
+| eval duration=(_time - relative_time(_time, "@h")) 
+| stats avg(duration) as AvgPauseTime by date_mday, date_month
+```
+
+---
+
+### 3. Gesamte Pausenzeit
+```spl
+index=windows EventCode=4800 
+| transaction startswith=EventCode="4800" endswith=EventCode="4801" 
+| eval duration=(duration/60) 
+| stats sum(duration) as TotalPauseTime by date_mday, date_month
+```
+
+---
+
+### 4. Längste ununterbrochene Arbeitszeit
+```spl
+index=windows EventCode IN (4800,4801) 
+| transaction startswith=EventCode="4801" endswith=EventCode="4800" 
+| eval duration=(duration/60) 
+| stats max(duration) as MaxWorkTime by date_mday, date_month
+```
+
+---
+
+### 5. Häufigkeit von Pausen
+```spl
+index=windows EventCode=4800 
+| stats count by date_mday, date_month
+```
+
+---
+
+### 6. Vergleich Woche zu Woche
+```spl
+index=windows EventCode=4800 
+| transaction startswith=EventCode="4800" endswith=EventCode="4801" 
+| eval duration=(duration/60) 
+| stats sum(duration) as TotalPauseTime by date_wday
+```
+
+---
+
+### 7. Tageszeit vs. Pausendauer
+```spl
+index=windows EventCode=4800 
+| transaction startswith=EventCode="4800" endswith=EventCode="4801" 
+| eval duration=(duration/60), hour=strftime(_time, "%H") 
+| stats avg(duration) as AvgPauseTime by hour
+```
+
 # Bluecoat logging
 
 BlueCoat, jetzt als Symantec Proxy bekannt, bietet detaillierte Web-Logs, die Informationen über den Web-Traffic eines Benutzers enthalten. Wenn Sie diese Logs in Splunk indexiert haben, können Sie verschiedene Panels erstellen, um Ihr Surfverhalten im Edge-Browser zu analysieren.
