@@ -83,7 +83,7 @@ Hier sind einige Vorschläge für Panels und die entsprechenden SPLs, basierend 
 ---
 
 ### 1. Top besuchte Domains
-```markdown
+
 ### Top besuchte Domains
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -93,7 +93,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 2. Tägliche Internetnutzung (nach Stunde)
-```markdown
+
 ### Tägliche Internetnutzung
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -103,7 +103,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 3. Kategorien von besuchten Websites
-```markdown
+
 ### Kategorien von besuchten Websites
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -113,7 +113,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 4. Volumen des heruntergeladenen Datenverkehrs
-```markdown
+
 ### Volumen des heruntergeladenen Datenverkehrs
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -123,7 +123,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 5. Volumen des hochgeladenen Datenverkehrs
-```markdown
+
 ### Volumen des hochgeladenen Datenverkehrs
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -133,7 +133,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 6. Top Dateitypen, die heruntergeladen wurden
-```markdown
+
 ### Top Dateitypen, die heruntergeladen wurden
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
@@ -143,7 +143,7 @@ index=bluecoat cs_UserAgent="*Edge*"
 ---
 
 ### 7. Gesamtdauer der Internetnutzung
-```markdown
+
 ### Gesamtdauer der Internetnutzung
 ```spl
 index=bluecoat cs_UserAgent="*Edge*" 
