@@ -14,6 +14,16 @@ Angenommen, Ihre Mittagspause liegt zwischen 12:00 und 14:00 Uhr.
 index=windows EventCode=4800 [search index=windows EventCode=4801 earliest=-1h@h latest=@h] 
 | eval duration=(_time - relative_time(_time, "@h")) 
 | stats avg(duration) as AvgPauseTime by date_mday, date_month
+
+OR
+
+index=windows (EventCode=4800 OR EventCode=4801) 
+| fields _time, EventCode
+| sort 0 _time
+| streamstats window=1 previous(_time) as prev_time previous(EventCode) as prev_EventCode
+| eval duration= if(EventCode=4801 AND prev_EventCode=4800, _time - prev_time, null())
+| where isnotnull(duration)
+| stats avg(duration) as AvgPauseTime by date_mday, date_month
 ```
 
 ---
