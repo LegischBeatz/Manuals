@@ -302,3 +302,82 @@ To be proactively informed about suspicious activities, set up alerts in Splunk 
 - **PDF Analysis Tools:** There are specialized tools and platforms that can analyze PDFs for malicious content. Consider integrating such tools into your security stack.
 
 Remember, while these methods can help detect malicious activities resulting from PDF interactions, no single method is foolproof. It's always best to use a layered security approach, combining multiple detection and prevention methods.
+
+
+# Detecting Home Directory Permission Changes in Linux Using Splunk
+
+**Author:** ChatGPT
+
+---
+
+## Introduction
+
+Changing permissions of home directories in Linux can be a sign of malicious activity, especially if it's done to facilitate unauthorized data transfers. Monitoring and alerting on such changes can help in early detection of potential security incidents. This guide will walk you through detecting these changes using Splunk.
+
+---
+
+## Prerequisites:
+
+- Ensure that you have logs from Linux systems forwarded to Splunk. This includes:
+  - Auditd logs (for detailed system activity)
+  - Syslog
+
+---
+
+## 1. Monitoring `chmod` and `chown` Commands:
+
+The `chmod` and `chown` commands are used to change file permissions and ownership, respectively. Monitoring the usage of these commands on home directories can provide insights into suspicious activities.
+
+### Splunk Search:
+
+```spl
+index=linux_logs (command=chmod OR command=chown) AND (path="/home/*" OR path="~/")
+```
+
+---
+
+## 2. Monitoring Specific Permission Changes:
+
+If you're specifically concerned about permissions being opened up (e.g., making a directory world-writable), you can narrow down your search.
+
+### Splunk Search:
+
+```spl
+index=linux_logs command=chmod path="/home/*" (mode="777" OR mode="a+w")
+```
+
+---
+
+## 3. Correlating with Data Transfer Activities:
+
+If you want to correlate permission changes with potential data transfer activities, you can look for commands like `scp`, `rsync`, or `sftp` executed shortly after the permission change.
+
+### Splunk Search:
+
+```spl
+index=linux_logs (command=chmod OR command=chown OR command=scp OR command=rsync OR command=sftp) AND path="/home/*" | transaction user, host startswith=command=chmod endswith=(command=scp OR command=rsync OR command=sftp)
+```
+
+---
+
+## 4. Alerts:
+
+To be proactively informed about suspicious activities, set up alerts in Splunk based on the searches above. For instance, if a user changes permissions and then immediately uses `scp`, it could be a sign of data exfiltration.
+
+---
+
+## 5. Additional Tips:
+
+- **User Behavior:** Monitor for unusual user behavior, such as changing permissions at odd hours or by users who typically don't perform such actions.
+  
+- **Baseline:** Establish a baseline of typical permission changes in your environment. This will help in reducing false positives and focusing on truly suspicious activities.
+
+- **File Integrity Monitoring:** Consider using File Integrity Monitoring (FIM) solutions that can provide more granular insights into file and directory changes.
+
+- **Context:** Always analyze alerts in context. For example, a developer might change permissions temporarily for debugging and then revert them. Such actions, while not best practice, might not be malicious.
+
+---
+
+## Conclusion:
+
+Monitoring home directory permission changes in Linux is crucial for detecting potential data breaches or unauthorized activities. Using Splunk, you can effectively keep an eye on these changes and take swift action when something looks amiss. Always ensure that your logging mechanisms are robust and that you periodically review and refine your alerting criteria.
