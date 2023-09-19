@@ -381,3 +381,38 @@ To be proactively informed about suspicious activities, set up alerts in Splunk 
 ## Conclusion:
 
 Monitoring home directory permission changes in Linux is crucial for detecting potential data breaches or unauthorized activities. Using Splunk, you can effectively keep an eye on these changes and take swift action when something looks amiss. Always ensure that your logging mechanisms are robust and that you periodically review and refine your alerting criteria.
+
+# Detection Rule Template
+
+### Rule Name:
+- A unique name that clearly describes the rule.
+
+### Description:
+- A brief description of the rule and its expected behavior.
+
+### Justification:
+- Reason for creating this rule, e.g., a specific threat or attack technique.
+
+### Source Data:
+- Which log sources or data types are required to make this rule effective?
+
+### Detection Logic:
+- SPL (Search Processing Language) for Splunk or other relevant code.
+
+### Trigger Criteria:
+- Under what circumstances will the rule be triggered? Is there a threshold or specific condition?
+
+### Associated MITRE ATT&CK Techniques: 
+- Which techniques or tactics from the MITRE ATT&CK framework does this rule address?
+
+### Potential False Positives:
+- Possible causes for false alarms and how they can be minimized.
+
+### Response Actions:
+- What actions should be taken when this rule is triggered? Are there specific investigation or response processes?
+
+### Review Interval:
+- How often should this rule be reviewed and updated?
+
+### Owner:
+- Who is responsible for the maintenance and review of this rule?
